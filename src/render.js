@@ -17,7 +17,7 @@ export function render(vnode, parentDom, replaceNode) {
 
 	// We abuse the `replaceNode` parameter in `hydrate()` to signal if we are in
 	// hydration mode or not by passing the `hydrate` function instead of a DOM
-	// element..
+	// element.
 	let isHydrating = typeof replaceNode === 'function';
 
 	// To be able to support calling `render()` multiple times on the same
