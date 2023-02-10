@@ -49,6 +49,7 @@ export function diff(
 		excessDomChildren = [oldDom];
 	}
 
+	// 假如有，就调用 _diff 函数，_diff是一个钩子函数，在VNode被diff前调用
 	if ((tmp = options._diff)) tmp(newVNode);
 
 	try {
@@ -73,7 +74,7 @@ export function diff(
 			} else {
 				// Instantiate the new component
 				if ('prototype' in newType && newType.prototype.render) {
-					// @ts-ignore The check above verifies that newType is suppose to be constructed
+					// @ts-ignore The check above verifies that newType is supposed to be constructed
 					newVNode._component = c = new newType(newProps, componentContext); // eslint-disable-line new-cap
 				} else {
 					// @ts-ignore Trust me, Component implements the interface we want
@@ -81,7 +82,7 @@ export function diff(
 					c.constructor = newType;
 					c.render = doRender;
 				}
-				if (provider) provider.sub(c);
+				if (provider) provider.sub(c); // sub对应的component
 
 				c.props = newProps;
 				if (!c.state) c.state = {};
@@ -98,7 +99,7 @@ export function diff(
 			}
 
 			if (newType.getDerivedStateFromProps != null) {
-				if (c._nextState == c.state) {
+				if (c._nextState === c.state) {
 					c._nextState = assign({}, c._nextState);
 				}
 
@@ -121,7 +122,7 @@ export function diff(
 				}
 
 				if (c.componentDidMount != null) {
-					c._renderCallbacks.push(c.componentDidMount);
+					c._renderCallbacks.push(c.componentDidMount); // 并没有立刻执行，是先放在了队列里
 				}
 			} else {
 				if (

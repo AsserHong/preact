@@ -184,4 +184,10 @@ installLogger(
 	String(localStorage.CONSOLE) === 'true' || location.href.match(/console/)
 );
 
-render(<App />, document.body);
+class TestRoot extends Component {
+	render() {
+		return <div>this is a test</div>;
+	}
+}
+
+render(<TestRoot />, document.body);
